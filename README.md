@@ -18,7 +18,7 @@ Zaimplementowałem za was logikę odnośnie wzorca singleton bezpiecznego dla w�
 Waszym zadaniem jest sprawić, aby reszta testów również była na zielono :)
 
 #### 3. Utwórz gettery dla kolekcji - 4 pkt.
-Potrzebujemy 2 gettery: getByComponentName i getByDate.
+Będą potrzebne 2 gettery: getByComponentName i getByDate.
 
 #### 4. Napisz testy jednostkowe dla utworzonych getterów - 6 pkt.
 Testy powinny pokrywać wszystkie możliwe sytuacje odnośnie przekazanych parametrów.
@@ -40,8 +40,8 @@ Format danych w pliku JSON nie powinna nas ograniczać w kwestii hierarchi klas 
 ### Klasa Report - 6 pkt.
 
 #### 1. Metody factory do tworzenia raportów dla komponentu i dnia - 4 pkt.
-Klasa Report posiada prywatny konstruktor i tego chcielibyśmy trzymać. Zamiast tworzyć różne konstruktory, lepszym podejściem jest zastosowanie metod factory.
-Są to statyczne metody, które zwracają obiekt danego i szczegółowo opisują czym będzie ten obiekt.
+Klasa Report posiada prywatny konstruktor i tego chcielibyśmy się trzymać. Zamiast tworzyć różne konstruktory, lepszym podejściem jest zastosowanie metod factory.
+Są to statyczne metody, które zwracają obiekt danego typu i szczegółowo opisują czym będzie ten obiekt.
 
 Waszym zadaniem jest stworzyć dwie metody factory getReportForComponent i getReportForDate, którym przekazujemy odpowiednio nazwę komponentu i datę.
 
@@ -52,3 +52,7 @@ W metodzie main utwórz dwa obiekty raportów i wypisz listę logów dla każdeg
 ### Ogólna ocena kodu - 4 pkt.
 
 Zwróćcie szczególną uwagę na stylistykę kodu. Pierwsze co zrobię, to uruchomię Analyze->Inspect code i będę przeglądać wszystkie warningi ;)
+
+## Zadanie dodatkowe
+
+Jako zadanie dodatkowe chciałbym, żebyście spróbowali utworzyć servlet, który będzie potrafił w wyświetlić jakiś raport, korzystając oczywiście z szablonu FreeMarkera :)
