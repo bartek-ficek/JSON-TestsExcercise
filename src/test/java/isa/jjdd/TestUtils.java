@@ -22,12 +22,16 @@ public final class TestUtils {
 
         logData.setId(ThreadLocalRandom.current().nextLong(0, Long.MAX_VALUE));
 
-        byte[] randomString = new byte[10];
-        ThreadLocalRandom.current().nextBytes(randomString);
-        logData.setComponentName(new String(randomString, StandardCharsets.UTF_8));
-
         long randomTimestamp = ThreadLocalRandom.current().nextLong(MIN_TIMESTAMP, MAX_TIMESTAMP);
         logData.setTimestamp(LocalDateTime.ofEpochSecond(randomTimestamp, 0, ZoneOffset.UTC));
+
+        byte[] randomComponentName = new byte[10];
+        ThreadLocalRandom.current().nextBytes(randomComponentName);
+        logData.setComponentName(new String(randomComponentName, StandardCharsets.UTF_8));
+
+        byte[] randomComponentMessage = new byte[20];
+        ThreadLocalRandom.current().nextBytes(randomComponentMessage);
+        logData.setMessage(new String(randomComponentMessage, StandardCharsets.UTF_8));
 
         return logData;
     }

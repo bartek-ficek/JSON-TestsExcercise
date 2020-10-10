@@ -4,8 +4,9 @@ import java.time.LocalDateTime;
 
 public class LogData {
     private long id;
-    private String componentName;
     private LocalDateTime timestamp;
+    private String componentName;
+    private String message;
 
     public long getId() {
         return id;
@@ -13,6 +14,14 @@ public class LogData {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getComponentName() {
@@ -23,11 +32,11 @@ public class LogData {
         this.componentName = componentName;
     }
 
-    public LocalDateTime getTimestamp() {
-        return timestamp;
+    public String getMessage() {
+        return message;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
