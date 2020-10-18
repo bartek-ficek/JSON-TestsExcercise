@@ -154,4 +154,9 @@ class TestLogDataSet {
             break;
         }
     }
+
+    @Test
+    void getByComponentName_checkIf_logDataSet_equalsNull() {
+        logDataSet.addAll(getRandomLogDataSet(RANDOM_LOG_DATA_SET_SIZE));
+    }
 }

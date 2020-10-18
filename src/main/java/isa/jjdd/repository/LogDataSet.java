@@ -3,10 +3,26 @@ package isa.jjdd.repository;
 import isa.jjdd.models.LogData;
 
 import javax.annotation.Nonnull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class LogDataSet implements Collection<LogData> {
     private static LogDataSet INSTANCE;
+    Set<LogData> setOfDataLogs = new HashSet<>();
+
+    LogDataSet getByComponentName(String componentName) {
+        LogDataSet logDataSet = new LogDataSet();
+        logDataSet.addAll(setOfDataLogs.stream().filter(e->e.getComponentName().equals(componentName)).collect(Collectors.toSet()));
+        return logDataSet;
+    }
+
+    LogDataSet getByDate(LocalDateTime logDate){
+        LogDataSet logDataSet = new LogDataSet();
+        logDataSet.addAll(setOfDataLogs.stream().filter(e->e.getTimestamp().equals(logDate)).collect(Collectors.toSet()));
+        return logDataSet;
+    }
 
     private LogDataSet() {
     }
@@ -24,17 +40,29 @@ public class LogDataSet implements Collection<LogData> {
 
     @Override
     public boolean add(LogData logData) {
-        throw new UnsupportedOperationException("Method add is not implemented");
+        if (logData != null) {
+            setOfDataLogs.add(logData);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean addAll(@Nonnull Collection<? extends LogData> c) {
-        throw new UnsupportedOperationException("Method addAll is not implemented");
+        if (!c.isEmpty()) {
+            for (LogData logData : c) {
+                if (logData != null) {
+                    setOfDataLogs.add(logData);
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Method clear is not implemented");
+        setOfDataLogs.clear();
     }
 
     @Override
@@ -49,14 +77,16 @@ public class LogDataSet implements Collection<LogData> {
 
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Method isEmpty is not implemented");
+        return setOfDataLogs.isEmpty();
     }
 
     @Override
     @Nonnull
     public Iterator<LogData> iterator() {
-        throw new UnsupportedOperationException("Method iterator is not implemented");
+        return setOfDataLogs.iterator();
     }
+
+
 
     @Override
     public boolean remove(Object o) {
@@ -75,7 +105,7 @@ public class LogDataSet implements Collection<LogData> {
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException("Method size is not implemented");
+        return setOfDataLogs.size();
     }
 
     @Override
