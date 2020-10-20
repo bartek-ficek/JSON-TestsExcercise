@@ -4,10 +4,11 @@ import isa.jjdd.models.LogData;
 import isa.jjdd.provider.LogsProvider;
 import isa.jjdd.repository.LogDataSet;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class Homeworks {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         LogsProvider logsProvider = null;
         String filePath = "";
 
@@ -19,5 +20,8 @@ public class Homeworks {
 
         // TODO: generate report from 18.09
         // print report from 18.09
+
+
+
     }
 }

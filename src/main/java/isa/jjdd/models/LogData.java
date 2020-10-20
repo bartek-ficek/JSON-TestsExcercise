@@ -9,6 +9,16 @@ public class LogData {
     private String componentName;
     private String message;
 
+    public LogData() {
+    }
+
+    public LogData(long id, LocalDateTime timestamp, String component_name, String message) {
+        this.id = id;
+        this.timestamp=timestamp;
+        this.componentName=component_name;
+        this.message=message;
+    }
+
     public long getId() {
         return id;
     }
