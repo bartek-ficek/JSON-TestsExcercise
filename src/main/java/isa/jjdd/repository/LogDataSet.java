@@ -12,13 +12,13 @@ public class LogDataSet implements Collection<LogData> {
     private static LogDataSet INSTANCE;
     Set<LogData> setOfDataLogs = new HashSet<>();
 
-    LogDataSet getByComponentName(String componentName) {
+    public LogDataSet getByComponentName(String componentName) {
         LogDataSet logDataSet = new LogDataSet();
         logDataSet.addAll(setOfDataLogs.stream().filter(e->e.getComponentName().equals(componentName)).collect(Collectors.toSet()));
         return logDataSet;
     }
 
-    LogDataSet getByDate(LocalDateTime logDate){
+    public LogDataSet getByDate(LocalDateTime logDate){
         LogDataSet logDataSet = new LogDataSet();
         logDataSet.addAll(setOfDataLogs.stream().filter(e->e.getTimestamp().equals(logDate)).collect(Collectors.toSet()));
         return logDataSet;

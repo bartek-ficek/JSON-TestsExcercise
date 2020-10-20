@@ -6,10 +6,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static isa.jjdd.TestUtils.getRandomLogData;
 import static isa.jjdd.TestUtils.getRandomLogDataSet;
@@ -156,10 +159,133 @@ class TestLogDataSet {
     }
 
     @Test
-    void getByComponentName_checkIf_logDataSet_equalsNull() {
+    void getByComponentName_useNullParameter_returnEmptyLogDataSet() {
         logDataSet.addAll(getRandomLogDataSet(RANDOM_LOG_DATA_SET_SIZE));
+        assertTrue(logDataSet.getByComponentName(null).isEmpty(), "Collection should be empty");
+    }
+
+    @Test
+    void getByComponentName_useProperParameter_returnRightLogDataSet() {
+        String wrongComponentName = "unavailableName";
+        int sizeOfSetWithWrongNames = 10;
+
+        for (int i = 0; i < sizeOfSetWithWrongNames; i++) {
+            LogData logData = getRandomLogData();
+            logData.setComponentName(wrongComponentName);
+            logDataSet.add(logData);
+        }
+
+        String correctComponentName = "availableName";
+        int sizeOfSetWithCorrectNames = 11;
+
+        for (int i = 0; i < sizeOfSetWithCorrectNames; i++) {
+            LogData logData = getRandomLogData();
+            logData.setComponentName(correctComponentName);
+            logDataSet.add(logData);
+        }
+
+        assertEquals(logDataSet.getByComponentName(correctComponentName).size(),
+                sizeOfSetWithCorrectNames, "Collection should include" + sizeOfSetWithCorrectNames + "objects.");
+    }
+
+    @Test
+    void getByComponentName_useWrongParameter_returnEmptyLogDataSet() {
+        String wrongComponentName = "unavailableName";
+        int sizeOfSetWithWrongNames = 10;
+
+        for (int i = 0; i < sizeOfSetWithWrongNames; i++) {
+            LogData logData = getRandomLogData();
+            logData.setComponentName(wrongComponentName);
+            logDataSet.add(logData);
+        }
+
+        String correctComponentName = "availableName";
+
+        assertTrue(logDataSet.getByComponentName(correctComponentName).isEmpty(), "Collection should be empty.");
     }
 
 
+    @Test
+    void getByDate_useNullParameter_returnEmptyLogDataSet() {
+        logDataSet.addAll(getRandomLogDataSet(RANDOM_LOG_DATA_SET_SIZE));
+        assertTrue(logDataSet.getByDate(null).isEmpty(), "Collection should be empty");
+    }
 
+    @Test
+    void getByDate_useProperParameter_returnRightLogDataSet() {
+        LocalDateTime wrongDate = LocalDateTime.of(2012, 7, 12, 13, 45, 0);
+        int sizeOfSetWithWrongDates = 10;
+
+        for (int i = 0; i < sizeOfSetWithWrongDates; i++) {
+            LogData logData = getRandomLogData();
+            logData.setTimestamp(wrongDate);
+            logDataSet.add(logData);
+        }
+
+        LocalDateTime correctDate = LocalDateTime.of(2019, 8, 13, 14, 50, 0);
+        int sizeOfSetWithCorrectDates = 11;
+
+        for (int i = 0; i < sizeOfSetWithCorrectDates; i++) {
+            LogData logData = getRandomLogData();
+            logData.setTimestamp(correctDate);
+            logDataSet.add(logData);
+        }
+
+        assertEquals(logDataSet.getByDate(correctDate).size(),
+                sizeOfSetWithCorrectDates, "Collection should include" + sizeOfSetWithCorrectDates + "objects.");
+    }
+
+    @Test
+    void getByDate_useWrongParameter_returnEmptyLogDataSet() {
+        LocalDateTime wrongDate = LocalDateTime.of(2012, 7, 12, 13, 45, 0);
+        int sizeOfSetWithWrongDates = 10;
+
+        for (int i = 0; i < sizeOfSetWithWrongDates; i++) {
+            LogData logData = getRandomLogData();
+            logData.setTimestamp(wrongDate);
+            logDataSet.add(logData);
+        }
+
+        LocalDateTime correctDate = LocalDateTime.of(2019, 8, 13, 14, 50, 0);
+        int sizeOfSetWithCorrectDates = 11;
+
+        assertTrue(logDataSet.getByDate(correctDate).isEmpty(), "Collection should be empty.");
+    }
+
+//    @Test
+//    void getByDate_passCorrectData_returnRightValue() {
+//        Collection<LogData> randomLogDataSet = new ArrayList<>();
+//        LocalDateTime wrongLocalDateTime = LocalDateTime.of(2020, 12, 12, 1, 2, 3);
+//        for (int i = 0; i < 100; i++) {
+//            LogData logData = getRandomLogData();
+//            logData.setTimestamp(wrongLocalDateTime);
+//            randomLogDataSet.add(logData);
+//        }
+//        LocalDateTime rightLocalDateTime = LocalDateTime.of(2010, 5, 1, 2, 3, 4);
+//        int expectedSize = 10;
+//        for (int i = 0; i < expectedSize; i++) {
+//            LogData logData = getRandomLogData();
+//            logData.setTimestamp(rightLocalDateTime);
+//            randomLogDataSet.add(logData);
+//        }
+//        logDataSet.addAll(randomLogDataSet);
+    //TODO - DONE but look in the PARENTHESIS on the line below (not my work)
+
+//        LogDataSet byComponentName = logDataSet.getByDate(rightLocalDateTime.toLocalDate());
+//        assertEquals(expectedSize, byComponentName.size());
+//    }
+//    @Test
+//    void getByDate_passWrongData_returnEmptyLogDataSet() {
+//        Collection<LogData> randomLogDataSet = new ArrayList<>();
+//        LocalDateTime wrongLocalDateTime = LocalDateTime.of(2020, 12, 12, 1, 2, 3);
+//        for (int i = 0; i < 100; i++) {
+//            LogData logData = getRandomLogData();
+//            logData.setTimestamp(wrongLocalDateTime);
+//            randomLogDataSet.add(logData);
+//        }
+//        LocalDateTime rightLocalDateTime = LocalDateTime.of(2010, 5, 1, 2, 3, 4);
+//        logDataSet.addAll(randomLogDataSet);
+//        LogDataSet byComponentName = logDataSet.getByDate(rightLocalDateTime.toLocalDate());
+//        assertEquals(true, byComponentName.isEmpty());
+//    }
 }
