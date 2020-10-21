@@ -4,7 +4,6 @@ import isa.jjdd.models.LogData;
 
 import javax.annotation.Nonnull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,7 +17,7 @@ public class LogDataSet implements Collection<LogData> {
         return logDataSet;
     }
 
-    public LogDataSet getByDate(LocalDateTime logDate){
+    public LogDataSet getByDate(LocalDate logDate){
         LogDataSet logDataSet = new LogDataSet();
         logDataSet.addAll(setOfDataLogs.stream().filter(e->e.getTimestamp().equals(logDate)).collect(Collectors.toSet()));
         return logDataSet;

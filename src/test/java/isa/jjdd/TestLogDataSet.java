@@ -185,7 +185,7 @@ class TestLogDataSet {
         }
 
         assertEquals(logDataSet.getByComponentName(correctComponentName).size(),
-                sizeOfSetWithCorrectNames, "Collection should include" + sizeOfSetWithCorrectNames + "objects.");
+                sizeOfSetWithCorrectNames, "Collection should include " + sizeOfSetWithCorrectNames + " objects.");
     }
 
     @Test
@@ -231,8 +231,8 @@ class TestLogDataSet {
             logDataSet.add(logData);
         }
 
-        assertEquals(logDataSet.getByDate(correctDate).size(),
-                sizeOfSetWithCorrectDates, "Collection should include" + sizeOfSetWithCorrectDates + "objects.");
+        assertEquals(logDataSet.getByDate(correctDate.toLocalDate()).size(),
+                sizeOfSetWithCorrectDates, "Collection should include " + sizeOfSetWithCorrectDates + " objects.");
     }
 
     @Test
@@ -249,45 +249,6 @@ class TestLogDataSet {
         LocalDateTime correctDate = LocalDateTime.of(2019, 8, 13, 14, 50, 0);
         int sizeOfSetWithCorrectDates = 11;
 
-        assertTrue(logDataSet.getByDate(correctDate).isEmpty(), "Collection should be empty.");
+        assertTrue(logDataSet.getByDate(correctDate.toLocalDate()).isEmpty(), "Collection should be empty.");
     }
-
-//    @Test
-//    void getByDate_passCorrectData_returnRightValue() {
-//        Collection<LogData> randomLogDataSet = new ArrayList<>();
-//        LocalDateTime wrongLocalDateTime = LocalDateTime.of(2020, 12, 12, 1, 2, 3);
-//        for (int i = 0; i < 100; i++) {
-//            LogData logData = getRandomLogData();
-//            logData.setTimestamp(wrongLocalDateTime);
-//            randomLogDataSet.add(logData);
-//        }
-//        LocalDateTime rightLocalDateTime = LocalDateTime.of(2010, 5, 1, 2, 3, 4);
-//        int expectedSize = 10;
-//        for (int i = 0; i < expectedSize; i++) {
-//            LogData logData = getRandomLogData();
-//            logData.setTimestamp(rightLocalDateTime);
-//            randomLogDataSet.add(logData);
-//        }
-//        logDataSet.addAll(randomLogDataSet);
-    //TODO - DONE but look in the PARENTHESIS on the line below (not my work)
-
-//        LogDataSet byComponentName = logDataSet.getByDate(rightLocalDateTime.toLocalDate());
-//        assertEquals(expectedSize, byComponentName.size());
-//    }
-//    @Test
-//    void getByDate_passWrongData_returnEmptyLogDataSet() {
-//        Collection<LogData> randomLogDataSet = new ArrayList<>();
-//        LocalDateTime wrongLocalDateTime = LocalDateTime.of(2020, 12, 12, 1, 2, 3);
-//        for (int i = 0; i < 100; i++) {
-//            LogData logData = getRandomLogData();
-//            logData.setTimestamp(wrongLocalDateTime);
-//            randomLogDataSet.add(logData);
-//        }
-//        LocalDateTime rightLocalDateTime = LocalDateTime.of(2010, 5, 1, 2, 3, 4);
-//        logDataSet.addAll(randomLogDataSet);
-    //TODO - DONE but look in the PARENTHESIS on the line below (not my work)
-
-//        LogDataSet byComponentName = logDataSet.getByDate(rightLocalDateTime.toLocalDate());
-//        assertEquals(true, byComponentName.isEmpty());
-//    }
 }

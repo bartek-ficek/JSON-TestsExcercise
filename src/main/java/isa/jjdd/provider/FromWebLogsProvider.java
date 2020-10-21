@@ -70,10 +70,4 @@ public class FromWebLogsProvider extends LogsProvider {
         }
         return listOfLogs;
     }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        FromWebLogsProvider fromWebLogsProvider = new FromWebLogsProvider();
-        System.out.println(fromWebLogsProvider.loadLogs("src/main/resources/logs.json"));
-        System.out.println((fromWebLogsProvider.loadLogs("src/main/resources/logs.json")).size());
-    }
 }
