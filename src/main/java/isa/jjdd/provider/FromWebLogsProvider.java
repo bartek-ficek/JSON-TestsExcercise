@@ -35,7 +35,6 @@ public class FromWebLogsProvider extends LogsProvider {
         return extractListOfLogDataFromJson(jsonAsString);
     }
 
-
     private String convertStreamToString(InputStream inputStream) {
         Scanner scanner = new Scanner(inputStream);
         try {

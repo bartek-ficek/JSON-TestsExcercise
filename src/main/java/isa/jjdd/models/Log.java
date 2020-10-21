@@ -5,9 +5,6 @@ public class Log {
     private String timestamp;
     private String message;
 
-    public Log(long id, String timestamp, String component_name, String message) {
-    }
-
     public long getId() {
         return id;
     }

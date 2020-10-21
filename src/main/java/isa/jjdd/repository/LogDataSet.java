@@ -8,6 +8,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class LogDataSet implements Collection<LogData> {
+    public static final String IMPLEMENT_INFORMATION = "No need to implement this method at this point";
     private static LogDataSet INSTANCE;
     Set<LogData> setOfDataLogs = new HashSet<>();
 
@@ -66,12 +67,12 @@ public class LogDataSet implements Collection<LogData> {
 
     @Override
     public boolean contains(Object o) {
-        throw new UnsupportedOperationException("No need to implement this method at this point");
+        throw new UnsupportedOperationException(IMPLEMENT_INFORMATION);
     }
 
     @Override
     public boolean containsAll(@Nonnull Collection<?> c) {
-        throw new UnsupportedOperationException("No need to implement this method at this point");
+        throw new UnsupportedOperationException(IMPLEMENT_INFORMATION);
     }
 
     @Override
@@ -87,17 +88,17 @@ public class LogDataSet implements Collection<LogData> {
 
     @Override
     public boolean remove(Object o) {
-        throw new UnsupportedOperationException("No need to implement this method at this point");
+        throw new UnsupportedOperationException(IMPLEMENT_INFORMATION);
     }
 
     @Override
     public boolean removeAll(@Nonnull Collection<?> c) {
-        throw new UnsupportedOperationException("No need to implement this method at this point");
+        throw new UnsupportedOperationException(IMPLEMENT_INFORMATION);
     }
 
     @Override
     public boolean retainAll(@Nonnull Collection<?> c) {
-        throw new UnsupportedOperationException("No need to implement this method at this point");
+        throw new UnsupportedOperationException(IMPLEMENT_INFORMATION);
     }
 
     @Override
@@ -114,6 +115,6 @@ public class LogDataSet implements Collection<LogData> {
     @Override
     @Nonnull
     public <T> T[] toArray(@Nonnull T[] a) {
-        throw new UnsupportedOperationException("No need to implement this method at this point");
+        throw new UnsupportedOperationException(IMPLEMENT_INFORMATION);
     }
 }

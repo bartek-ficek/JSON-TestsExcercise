@@ -12,10 +12,6 @@ public class LogData {
     public LogData() {
     }
 
-    public long getId() {
-        return id;
-    }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -34,10 +30,6 @@ public class LogData {
 
     public void setComponentName(String componentName) {
         this.componentName = componentName;
-    }
-
-    public String getMessage() {
-        return message;
     }
 
     public void setMessage(String message) {
