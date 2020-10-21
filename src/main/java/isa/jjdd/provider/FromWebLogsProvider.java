@@ -36,7 +36,7 @@ public class FromWebLogsProvider extends LogsProvider {
 
         String jsonAsString = convertStreamToString(jsonDataAsStream);
 
-        List<LogData> listOfLogs = getLogData(jsonAsString);
+        List<LogData> listOfLogs = extractListOfLogDataFromJson(jsonAsString);
         return listOfLogs;
     }
 
@@ -52,7 +52,7 @@ public class FromWebLogsProvider extends LogsProvider {
     }
 
     @Nonnull
-    private List<LogData> getLogData(String jsonAsString) {
+    private List<LogData> extractListOfLogDataFromJson(String jsonAsString) {
         Gson gson = new Gson();
         LogsDB mainObjectFromJson = gson.fromJson(jsonAsString, LogsDB.class);
         List<LogData> listOfLogs = new ArrayList<>();
@@ -61,7 +61,11 @@ public class FromWebLogsProvider extends LogsProvider {
             List<Log> logList = componentLog.getLogs();
 
             for (Log log : logList) {
-                LogData logData = new LogData(log.getId(), LocalDateTime.parse(log.getTimestamp()), componentLog.getComponent_name(), log.getMessage());
+                LogData logData = new LogData();
+                logData.setId(log.getId());
+                logData.setMessage(log.getMessage());
+                logData.setTimestamp(LocalDateTime.parse(log.getTimestamp()));
+                logData.setComponentName(componentLog.getComponent_name());
                 listOfLogs.add(logData);
             }
         }
