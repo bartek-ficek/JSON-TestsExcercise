@@ -7,10 +7,7 @@ import isa.jjdd.models.LogData;
 import isa.jjdd.models.LogsDB;
 
 import javax.annotation.Nonnull;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +18,12 @@ public class FromWebLogsProvider extends LogsProvider {
     @Nonnull
     @Override
     public List<LogData> loadLogs(@Nonnull String filePath) {
+
         File file = new File(filePath);
         InputStream logsFileAsStream = null;
         try {
             logsFileAsStream = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | RuntimeException e) {
             e.printStackTrace();
         }
         return parseJsonToListOfLogData(logsFileAsStream);
@@ -33,22 +31,24 @@ public class FromWebLogsProvider extends LogsProvider {
 
     @Nonnull
     private List<LogData> parseJsonToListOfLogData(InputStream jsonDataAsStream) {
-
         String jsonAsString = convertStreamToString(jsonDataAsStream);
-
-        List<LogData> listOfLogs = extractListOfLogDataFromJson(jsonAsString);
-        return listOfLogs;
+        return extractListOfLogDataFromJson(jsonAsString);
     }
 
-    @Nonnull
+
     private String convertStreamToString(InputStream inputStream) {
         Scanner scanner = new Scanner(inputStream);
-        StringBuilder stringBuilder = new StringBuilder();
+        try {
+            StringBuilder stringBuilder = new StringBuilder();
 
-        while (scanner.hasNextLine()) {
-            stringBuilder.append(scanner.nextLine());
+            while (scanner.hasNextLine()) {
+                stringBuilder.append(scanner.nextLine());
+            }
+            return stringBuilder.toString();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
-        return stringBuilder.toString();
+        return null;
     }
 
     @Nonnull
@@ -59,7 +59,6 @@ public class FromWebLogsProvider extends LogsProvider {
 
         for (ComponentsLogs componentLog : mainObjectFromJson.getComponents_logs()) {
             List<Log> logList = componentLog.getLogs();
-
             for (Log log : logList) {
                 LogData logData = new LogData();
                 logData.setId(log.getId());
