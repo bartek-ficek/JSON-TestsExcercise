@@ -28,26 +28,15 @@ public class FromWebLogsProvider extends LogsProvider {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return parseJsonToLogData(logsFileAsStream);
+        return parseJsonToListOfLogData(logsFileAsStream);
     }
 
     @Nonnull
-    private List<LogData> parseJsonToLogData(InputStream jsonDataAsStream) {
+    private List<LogData> parseJsonToListOfLogData(InputStream jsonDataAsStream) {
 
         String jsonAsString = convertStreamToString(jsonDataAsStream);
 
-        Gson gson = new Gson();
-        LogsDB logsDB = gson.fromJson(jsonAsString, LogsDB.class);
-
-        List<LogData> listOfLogs = new ArrayList<>();
-        for (ComponentsLogs logComponent : logsDB.getComponents_logs()) {
-            List<Log> componentsLogs = logComponent.getLogs();
-
-            for (Log log : componentsLogs) {
-                LogData logData = new LogData(log.getId(), LocalDateTime.parse(log.getTimestamp()), logComponent.getComponent_name(), log.getMessage());
-                listOfLogs.add(logData);
-            }
-        }
+        List<LogData> listOfLogs = getLogData(jsonAsString);
         return listOfLogs;
     }
 
@@ -60,6 +49,23 @@ public class FromWebLogsProvider extends LogsProvider {
             stringBuilder.append(scanner.nextLine());
         }
         return stringBuilder.toString();
+    }
+
+    @Nonnull
+    private List<LogData> getLogData(String jsonAsString) {
+        Gson gson = new Gson();
+        LogsDB mainObjectFromJson = gson.fromJson(jsonAsString, LogsDB.class);
+        List<LogData> listOfLogs = new ArrayList<>();
+
+        for (ComponentsLogs componentLog : mainObjectFromJson.getComponents_logs()) {
+            List<Log> logList = componentLog.getLogs();
+
+            for (Log log : logList) {
+                LogData logData = new LogData(log.getId(), LocalDateTime.parse(log.getTimestamp()), componentLog.getComponent_name(), log.getMessage());
+                listOfLogs.add(logData);
+            }
+        }
+        return listOfLogs;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
