@@ -17,13 +17,9 @@ public class Homeworks {
         List<LogData> logs = logsProvider.loadLogs(filePath);
         LogDataSet.getInstance().addAll(logs);
 
-        // TODO: generate report for database component
         Report reportComponent = Report.getReportForComponent("database");
         reportComponent.printReport();
 
-
-        // TODO: generate report from 18.09
-        // print report from 18.09
         Report reportDate = Report.getReportForData("2020-09-18");
         reportDate.printReport();
 

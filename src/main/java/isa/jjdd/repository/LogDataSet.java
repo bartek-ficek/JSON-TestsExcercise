@@ -19,7 +19,7 @@ public class LogDataSet implements Collection<LogData> {
 
     public LogDataSet getByDate(LocalDate logDate){
         LogDataSet logDataSet = new LogDataSet();
-        logDataSet.addAll(setOfDataLogs.stream().filter(e->e.getTimestamp().equals(logDate)).collect(Collectors.toSet()));
+        logDataSet.addAll(setOfDataLogs.stream().filter(e->e.getTimestamp().toLocalDate().equals(logDate)).collect(Collectors.toSet()));
         return logDataSet;
     }
 
@@ -85,8 +85,6 @@ public class LogDataSet implements Collection<LogData> {
         return setOfDataLogs.iterator();
     }
 
-
-
     @Override
     public boolean remove(Object o) {
         throw new UnsupportedOperationException("No need to implement this method at this point");
@@ -110,7 +108,7 @@ public class LogDataSet implements Collection<LogData> {
     @Override
     @Nonnull
     public Object[] toArray() {
-        throw new UnsupportedOperationException("No need to implement this method at this point");
+        return setOfDataLogs.toArray();
     }
 
     @Override

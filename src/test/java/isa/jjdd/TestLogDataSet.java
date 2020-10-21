@@ -245,9 +245,7 @@ class TestLogDataSet {
             logData.setTimestamp(wrongDate);
             logDataSet.add(logData);
         }
-
         LocalDateTime correctDate = LocalDateTime.of(2019, 8, 13, 14, 50, 0);
-        int sizeOfSetWithCorrectDates = 11;
 
         assertTrue(logDataSet.getByDate(correctDate.toLocalDate()).isEmpty(), "Collection should be empty.");
     }
