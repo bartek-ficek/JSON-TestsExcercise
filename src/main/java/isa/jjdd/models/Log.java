@@ -1,9 +1,5 @@
 package isa.jjdd.models;
 
-import com.google.gson.Gson;
-
-import java.time.LocalDateTime;
-
 public class Log {
     private long id;
     private String timestamp;

@@ -20,18 +20,25 @@ public class FromWebLogsProvider extends LogsProvider {
 
     @Nonnull
     @Override
-    public List<LogData> loadLogs(@Nonnull String filePath) throws FileNotFoundException {
-        StringBuilder jsonLogs = new StringBuilder();
+    public List<LogData> loadLogs(@Nonnull String filePath) {
         File file = new File(filePath);
-        InputStream jsonAsStream = new FileInputStream(file);
-        Scanner scanner = new Scanner(jsonAsStream);
-        while (scanner.hasNextLine()) {
-            jsonLogs.append(scanner.nextLine());
+        InputStream logsFileAsStream = null;
+        try {
+            logsFileAsStream = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        String jsonAsString = jsonLogs.toString();
+        return parseJsonToLogData(logsFileAsStream);
+    }
+
+    @Nonnull
+    private List<LogData> parseJsonToLogData(InputStream jsonDataAsStream) {
+
+        String jsonAsString = convertStreamToString(jsonDataAsStream);
 
         Gson gson = new Gson();
         LogsDB logsDB = gson.fromJson(jsonAsString, LogsDB.class);
+
         List<LogData> listOfLogs = new ArrayList<>();
         for (ComponentsLogs logComponent : logsDB.getComponents_logs()) {
             List<Log> componentsLogs = logComponent.getLogs();
@@ -42,6 +49,17 @@ public class FromWebLogsProvider extends LogsProvider {
             }
         }
         return listOfLogs;
+    }
+
+    @Nonnull
+    private String convertStreamToString(InputStream inputStream) {
+        Scanner scanner = new Scanner(inputStream);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while (scanner.hasNextLine()) {
+            stringBuilder.append(scanner.nextLine());
+        }
+        return stringBuilder.toString();
     }
 
     public static void main(String[] args) throws FileNotFoundException {
